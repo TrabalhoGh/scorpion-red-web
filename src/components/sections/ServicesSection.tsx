@@ -1,6 +1,8 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Shield, Code, Briefcase } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -14,6 +16,16 @@ const services = [
     icon: "👁️",
   },
   {
+    title: "Consulting Services",
+    description: "Expert security consulting to identify vulnerabilities and improve your security posture.",
+    icon: <Briefcase className="text-scorpion-red w-10 h-10" />,
+  },
+  {
+    title: "Penetration Testing",
+    description: "Professional ethical hacking services to find security weaknesses before malicious hackers do.",
+    icon: <Code className="text-scorpion-red w-10 h-10" />,
+  },
+  {
     title: "Risk Assessment",
     description: "Comprehensive security audits and vulnerability analysis for your premises.",
     icon: "📊",
@@ -21,7 +33,7 @@ const services = [
   {
     title: "Cyber Security",
     description: "Protection against digital threats, data breaches, and online vulnerabilities.",
-    icon: "🔒",
+    icon: <Shield className="text-scorpion-red w-10 h-10" />,
   },
 ];
 
@@ -39,11 +51,11 @@ const ServicesSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <Card key={index} className="bg-scorpion-gray text-white border-scorpion-gray/50 service-card transition-all duration-300">
               <CardHeader>
-                <div className="text-4xl mb-4">{service.icon}</div>
+                <div className="text-4xl mb-4">{typeof service.icon === 'string' ? service.icon : service.icon}</div>
                 <CardTitle className="text-xl font-bold">{service.title}</CardTitle>
               </CardHeader>
               <CardContent>
@@ -54,8 +66,8 @@ const ServicesSection = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Button className="bg-scorpion-red hover:bg-scorpion-red/80 text-white">
-            View All Services
+          <Button className="bg-scorpion-red hover:bg-scorpion-red/80 text-white" asChild>
+            <Link to="/services">View All Services</Link>
           </Button>
         </div>
       </div>

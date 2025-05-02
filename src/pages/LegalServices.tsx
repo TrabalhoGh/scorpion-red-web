@@ -3,7 +3,7 @@ import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Gavel, Scale, Balance } from "lucide-react";
+import { Shield, Gavel, Scale } from "lucide-react";
 import { Link } from "react-router-dom";
 import CyberGuardian from "@/components/cyber/CyberGuardian";
 import CyberChallenge from "@/components/cyber/CyberChallenge";
@@ -12,7 +12,7 @@ const legalServices = [
   {
     title: "Direito Familiar",
     description: "Assistência especializada em divórcios, guarda de filhos, pensão alimentícia e outros assuntos familiares com foco na proteção dos direitos paternos.",
-    icon: <Balance className="text-scorpion-red w-16 h-16" />,
+    icon: <Scale className="text-scorpion-red w-16 h-16" />,
     details: [
       "Acordos de divórcio equilibrados",
       "Defesa de direitos parentais",

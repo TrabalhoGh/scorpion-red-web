@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Shield, Phone } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -24,24 +24,25 @@ const Navbar = () => {
     <header className="fixed top-0 left-0 w-full bg-black border-b border-scorpion-gray/30 z-50">
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center">
-          <Link to="/" className="flex items-center">
-            <span className="text-scorpion-red font-bold text-2xl mr-2">SCORPION</span>
-            <span className="text-white font-medium text-lg">SECURITY</span>
+          <Link to="/" className="flex items-center group">
+            <Shield className="h-6 w-6 text-scorpion-red mr-2 group-hover:animate-pulse transition-all" />
+            <span className="text-scorpion-red font-bold text-2xl mr-2 group-hover:text-white transition-colors">SCORPION</span>
+            <span className="text-white font-medium text-lg group-hover:text-scorpion-red transition-colors">SECURITY</span>
           </Link>
         </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
           <NavigationMenu>
-            <NavigationMenuList>
+            <NavigationMenuList className="space-x-2">
               <NavigationMenuItem>
-                <Link to="/" className="text-white hover:text-scorpion-red transition-colors">
+                <Link to="/" className="text-white hover:text-scorpion-red transition-colors px-3 py-2 rounded-md hover:bg-scorpion-gray/20">
                   Home
                 </Link>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-white hover:text-scorpion-red hover:bg-transparent">
+                <NavigationMenuTrigger className="bg-transparent text-white hover:text-scorpion-red hover:bg-scorpion-gray/20">
                   Serviços
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -49,7 +50,7 @@ const Navbar = () => {
                     <li className="row-span-3">
                       <NavigationMenuLink asChild>
                         <Link
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-scorpion-gray p-6 no-underline outline-none focus:shadow-md"
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-scorpion-gray p-6 no-underline outline-none focus:shadow-md hover:bg-scorpion-gray/80 transition-colors"
                           to="/services"
                         >
                           <div className="mb-2 mt-4 text-lg font-medium text-white">
@@ -105,29 +106,29 @@ const Navbar = () => {
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link to="/about" className="text-white hover:text-scorpion-red transition-colors">
+                <Link to="/about" className="text-white hover:text-scorpion-red transition-colors px-3 py-2 rounded-md hover:bg-scorpion-gray/20">
                   Sobre
                 </Link>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link to="/contact" className="text-white hover:text-scorpion-red transition-colors">
+                <Link to="/contact" className="text-white hover:text-scorpion-red transition-colors px-3 py-2 rounded-md hover:bg-scorpion-gray/20">
                   Contato
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
           
-          <Button className="bg-scorpion-red hover:bg-scorpion-red/80 text-white">
-            Linha de Emergência
+          <Button className="bg-scorpion-red hover:bg-scorpion-red/80 text-white flex items-center gap-2 shadow-lg shadow-scorpion-red/20">
+            <Phone className="h-4 w-4" /> Linha de Emergência
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
-          <Button variant="ghost" size="icon" onClick={toggleMenu}>
+          <Button variant="ghost" size="icon" onClick={toggleMenu} className="text-white hover:bg-scorpion-gray/20">
             {isMenuOpen ? (
-              <X className="h-6 w-6 text-white" />
+              <X className="h-6 w-6 text-scorpion-red" />
             ) : (
               <Menu className="h-6 w-6 text-white" />
             )}
@@ -141,44 +142,49 @@ const Navbar = () => {
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <Link 
               to="/" 
-              className="text-white hover:text-scorpion-red py-2 transition-colors"
+              className="text-white hover:text-scorpion-red py-2 transition-colors flex items-center gap-2"
               onClick={() => setIsMenuOpen(false)}
             >
+              <span className="w-1 h-6 bg-scorpion-red/50"></span>
               Home
             </Link>
             <Link 
               to="/services" 
-              className="text-white hover:text-scorpion-red py-2 transition-colors"
+              className="text-white hover:text-scorpion-red py-2 transition-colors flex items-center gap-2"
               onClick={() => setIsMenuOpen(false)}
             >
+              <span className="w-1 h-6 bg-scorpion-red/50"></span>
               Serviços
             </Link>
             <Link 
               to="/legal-services" 
-              className="text-white hover:text-scorpion-red py-2 transition-colors pl-4 border-l border-scorpion-gray/30"
+              className="text-white hover:text-scorpion-red py-2 transition-colors pl-4 border-l border-scorpion-gray/30 flex items-center gap-2"
               onClick={() => setIsMenuOpen(false)}
             >
+              <span className="w-1 h-6 bg-scorpion-red/30"></span>
               Serviços Jurídicos
             </Link>
             <Link 
               to="/about" 
-              className="text-white hover:text-scorpion-red py-2 transition-colors"
+              className="text-white hover:text-scorpion-red py-2 transition-colors flex items-center gap-2"
               onClick={() => setIsMenuOpen(false)}
             >
+              <span className="w-1 h-6 bg-scorpion-red/50"></span>
               Sobre
             </Link>
             <Link 
               to="/contact" 
-              className="text-white hover:text-scorpion-red py-2 transition-colors"
+              className="text-white hover:text-scorpion-red py-2 transition-colors flex items-center gap-2"
               onClick={() => setIsMenuOpen(false)}
             >
+              <span className="w-1 h-6 bg-scorpion-red/50"></span>
               Contato
             </Link>
             <Button 
-              className="bg-scorpion-red hover:bg-scorpion-red/80 text-white w-full"
+              className="bg-scorpion-red hover:bg-scorpion-red/80 text-white w-full flex items-center justify-center gap-2 mt-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              Linha de Emergência
+              <Phone className="h-4 w-4" /> Linha de Emergência
             </Button>
           </div>
         </div>

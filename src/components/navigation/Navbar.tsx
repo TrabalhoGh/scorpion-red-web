@@ -105,12 +105,6 @@ const Navbar = () => {
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link to="/redpill" className="text-white hover:text-scorpion-red transition-colors">
-                  Despertar Vermelho
-                </Link>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
                 <Link to="/about" className="text-white hover:text-scorpion-red transition-colors">
                   Sobre
                 </Link>
@@ -165,13 +159,6 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Serviços Jurídicos
-            </Link>
-            <Link 
-              to="/redpill" 
-              className="text-white hover:text-scorpion-red py-2 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Despertar Vermelho
             </Link>
             <Link 
               to="/about" 

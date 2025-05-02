@@ -3,6 +3,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,21 +31,101 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="text-white hover:text-scorpion-red transition-colors">
-            Home
-          </Link>
-          <Link to="/services" className="text-white hover:text-scorpion-red transition-colors">
-            Services
-          </Link>
-          <Link to="/about" className="text-white hover:text-scorpion-red transition-colors">
-            About
-          </Link>
-          <Link to="/contact" className="text-white hover:text-scorpion-red transition-colors">
-            Contact
-          </Link>
+        <div className="hidden md:flex items-center space-x-6">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <Link to="/" className="text-white hover:text-scorpion-red transition-colors">
+                  Home
+                </Link>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent text-white hover:text-scorpion-red hover:bg-transparent">
+                  Serviços
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    <li className="row-span-3">
+                      <NavigationMenuLink asChild>
+                        <Link
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-scorpion-gray p-6 no-underline outline-none focus:shadow-md"
+                          to="/services"
+                        >
+                          <div className="mb-2 mt-4 text-lg font-medium text-white">
+                            Todos os Serviços
+                          </div>
+                          <p className="text-sm leading-tight text-white/70">
+                            Conheça nossa gama completa de serviços de segurança física e digital.
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/legal-services"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-scorpion-gray hover:text-white focus:bg-scorpion-gray focus:text-white"
+                        >
+                          <div className="text-sm font-medium leading-none">Serviços Jurídicos</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/70">
+                            Proteção legal especializada para homens.
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/services"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-scorpion-gray hover:text-white focus:bg-scorpion-gray focus:text-white"
+                        >
+                          <div className="text-sm font-medium leading-none">Segurança Física</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/70">
+                            Proteção pessoal e monitoramento.
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/services"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-scorpion-gray hover:text-white focus:bg-scorpion-gray focus:text-white"
+                        >
+                          <div className="text-sm font-medium leading-none">Segurança Digital</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/70">
+                            Proteção contra ameaças cibernéticas.
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <Link to="/redpill" className="text-white hover:text-scorpion-red transition-colors">
+                  Despertar Vermelho
+                </Link>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <Link to="/about" className="text-white hover:text-scorpion-red transition-colors">
+                  Sobre
+                </Link>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <Link to="/contact" className="text-white hover:text-scorpion-red transition-colors">
+                  Contato
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+          
           <Button className="bg-scorpion-red hover:bg-scorpion-red/80 text-white">
-            Emergency Line
+            Linha de Emergência
           </Button>
         </div>
 
@@ -68,27 +157,41 @@ const Navbar = () => {
               className="text-white hover:text-scorpion-red py-2 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Services
+              Serviços
+            </Link>
+            <Link 
+              to="/legal-services" 
+              className="text-white hover:text-scorpion-red py-2 transition-colors pl-4 border-l border-scorpion-gray/30"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Serviços Jurídicos
+            </Link>
+            <Link 
+              to="/redpill" 
+              className="text-white hover:text-scorpion-red py-2 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Despertar Vermelho
             </Link>
             <Link 
               to="/about" 
               className="text-white hover:text-scorpion-red py-2 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              About
+              Sobre
             </Link>
             <Link 
               to="/contact" 
               className="text-white hover:text-scorpion-red py-2 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Contact
+              Contato
             </Link>
             <Button 
               className="bg-scorpion-red hover:bg-scorpion-red/80 text-white w-full"
               onClick={() => setIsMenuOpen(false)}
             >
-              Emergency Line
+              Linha de Emergência
             </Button>
           </div>
         </div>

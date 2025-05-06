@@ -3,9 +3,10 @@ import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import ServicesSection from "@/components/sections/ServicesSection";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Code, Briefcase, ShieldAlert } from "lucide-react";
+import { Shield, Code, Briefcase, ShieldAlert, Bot, Trophy, Medal } from "lucide-react";
 import CyberGuardian from "@/components/cyber/CyberGuardian";
 import CyberChallenge from "@/components/cyber/CyberChallenge";
+import AISecurityTraining from "@/components/security/AISecurityTraining";
 
 const detailedServices = [
   {
@@ -54,6 +55,18 @@ const detailedServices = [
       "Security information and event management (SIEM)",
       "Endpoint protection",
       "Security operations center (SOC)"
+    ]
+  },
+  {
+    title: "AI Security Training System",
+    description: "Gamified cybersecurity training platform with dual AI system that tests and educates your employees on security best practices.",
+    icon: <Bot className="text-scorpion-red w-16 h-16" />,
+    details: [
+      "Z3R0: Attack simulation AI",
+      "AI-ron: Defense consultant AI",
+      "Gamified learning environment",
+      "Real-time scoring and ranking",
+      "Digital achievement badges"
     ]
   }
 ];
@@ -108,6 +121,7 @@ const Services = () => {
           </div>
         </div>
       </div>
+      <AISecurityTraining />
       <CyberGuardian />
       <CyberChallenge />
       <Footer />

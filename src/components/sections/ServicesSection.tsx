@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Code, Briefcase } from "lucide-react";
+import { Shield, Code, Briefcase, Bot, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -35,6 +35,16 @@ const services = [
     description: "Protection against digital threats, data breaches, and online vulnerabilities.",
     icon: <Shield className="text-scorpion-red w-10 h-10" />,
   },
+  {
+    title: "AI Security Training",
+    description: "Gamified dual-AI system to train your team against cyber attacks with Z3R0 and AI-ron.",
+    icon: <Bot className="text-scorpion-red w-10 h-10" />,
+  },
+  {
+    title: "Security Gamification",
+    description: "Turn security awareness into friendly competition with points, badges, and leaderboards.",
+    icon: <Trophy className="text-scorpion-red w-10 h-10" />,
+  },
 ];
 
 const ServicesSection = () => {
@@ -51,7 +61,7 @@ const ServicesSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <Card key={index} className="bg-scorpion-gray text-white border-scorpion-gray/50 service-card transition-all duration-300">
               <CardHeader>

@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -21,11 +22,11 @@ const HeroSection = () => {
           Advanced security solutions for businesses and individuals. Your safety is our mission.
         </p>
         <div className="flex flex-col md:flex-row justify-center gap-4">
-          <Button size="lg" className="bg-scorpion-red hover:bg-scorpion-red/80 text-white text-lg">
-            Our Services
+          <Button asChild size="lg" className="bg-scorpion-red hover:bg-scorpion-red/80 text-white text-lg">
+            <Link to="/services">Our Services</Link>
           </Button>
-          <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 text-lg">
-            Contact Us
+          <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10 text-lg">
+            <Link to="/contact">Contact Us</Link>
           </Button>
         </div>
       </div>

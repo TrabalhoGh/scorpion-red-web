@@ -4,9 +4,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
+import AISecurityChatbots from "./AISecurityChatbots";
 
 const AISecurityTraining = () => {
   const [activeTab, setActiveTab] = useState<'z3r0' | 'airon'>('z3r0');
+  const [showChatbots, setShowChatbots] = useState(false);
   
   return (
     <section className="py-20 bg-scorpion-gray/50">
@@ -230,13 +232,23 @@ const AISecurityTraining = () => {
               )}
 
               <div className="mt-8 text-center">
-                <Button className={`${activeTab === 'z3r0' ? 'bg-scorpion-red' : 'bg-blue-600'} hover:opacity-90`}>
-                  Request Demo
+                <Button 
+                  className={`${activeTab === 'z3r0' ? 'bg-scorpion-red' : 'bg-blue-600'} hover:opacity-90`}
+                  onClick={() => setShowChatbots(!showChatbots)}
+                >
+                  {showChatbots ? 'Hide Demo' : 'Try Demo'}
                 </Button>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Chat Interface - Only show when demo is activated */}
+        {showChatbots && (
+          <div className="mt-12 animate-fade-in">
+            <AISecurityChatbots />
+          </div>
+        )}
 
         <div className="mt-16 bg-scorpion-black border border-scorpion-gray/30 rounded-lg p-6 md:p-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">

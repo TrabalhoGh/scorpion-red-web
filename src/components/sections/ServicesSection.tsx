@@ -1,15 +1,9 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Shield, Code, Briefcase, Bot, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
-  {
-    title: "Physical Security",
-    description: "Professional security personnel for businesses, events, and personal protection.",
-    icon: "🛡️",
-  },
   {
     title: "Surveillance Systems",
     description: "State-of-the-art camera systems, monitoring and alert solutions.",

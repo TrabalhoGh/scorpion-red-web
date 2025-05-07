@@ -5,8 +5,8 @@ import HeroSection from "@/components/sections/HeroSection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import AboutSection from "@/components/sections/AboutSection";
 import ContactSection from "@/components/sections/ContactSection";
-import CyberGuardian from "@/components/cyber/CyberGuardian";
 import CyberChallenge from "@/components/cyber/CyberChallenge";
+import ChatBot from "@/components/chat/ChatBot";
 
 const Index = () => {
   return (
@@ -18,7 +18,7 @@ const Index = () => {
         <AboutSection />
         <ContactSection />
       </main>
-      <CyberGuardian />
+      <ChatBot />
       <CyberChallenge />
       <Footer />
     </div>

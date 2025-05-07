@@ -7,6 +7,7 @@ import { Shield, Code, Briefcase, ShieldAlert, Bot, Trophy, Medal } from "lucide
 import CyberGuardian from "@/components/cyber/CyberGuardian";
 import CyberChallenge from "@/components/cyber/CyberChallenge";
 import AISecurityTraining from "@/components/security/AISecurityTraining";
+import ChatBot from "@/components/chat/ChatBot";
 
 const detailedServices = [
   {
@@ -31,18 +32,6 @@ const detailedServices = [
       "Mobile application security analysis",
       "Wireless network security assessment",
       "Social engineering simulations"
-    ]
-  },
-  {
-    title: "Physical Security",
-    description: "Comprehensive physical security solutions to protect your premises, personnel, and assets from unauthorized access and threats.",
-    icon: "🛡️",
-    details: [
-      "Security guard services",
-      "Access control systems",
-      "CCTV installation and monitoring",
-      "Alarm systems",
-      "Executive protection"
     ]
   },
   {
@@ -122,7 +111,7 @@ const Services = () => {
         </div>
       </div>
       <AISecurityTraining />
-      <CyberGuardian />
+      <ChatBot />
       <CyberChallenge />
       <Footer />
     </div>

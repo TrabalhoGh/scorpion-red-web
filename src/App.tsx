@@ -12,9 +12,6 @@ import LegalServices from "./pages/LegalServices";
 import NotFound from "./pages/NotFound";
 import React, { useEffect } from "react";
 
-// Debug to verify Button component is accessible
-console.log("App.tsx loading...");
-
 const queryClient = new QueryClient();
 
 const App = () => {

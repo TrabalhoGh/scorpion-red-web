@@ -12,10 +12,26 @@ try {
   if (!rootElement) {
     console.error("Root element not found");
   } else {
-    createRoot(rootElement).render(<App />);
+    console.log("Found root element, creating React root");
+    
+    try {
+      // Try to create the root and render the app
+      createRoot(rootElement).render(<App />);
+      console.log("App rendered successfully");
+    } catch (renderError) {
+      console.error("Error rendering the application:", renderError);
+      
+      // Show error message in the root element
+      rootElement.innerHTML = `
+        <div style="font-family: sans-serif; padding: 20px; text-align: center;">
+          <h1>Something went wrong</h1>
+          <p>The application encountered a render error. Details: ${renderError?.message || 'Unknown error'}</p>
+        </div>
+      `;
+    }
   }
 } catch (error) {
-  console.error("Error rendering the application:", error);
+  console.error("Critical error in main.tsx:", error);
   
   // Show a basic error message to the user
   const rootElement = document.getElementById("root");

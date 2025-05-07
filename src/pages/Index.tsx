@@ -7,6 +7,7 @@ import AboutSection from "@/components/sections/AboutSection";
 import ContactSection from "@/components/sections/ContactSection";
 import CyberChallenge from "@/components/cyber/CyberChallenge";
 import ChatBot from "@/components/chat/ChatBot";
+import CyberGuardian from "@/components/cyber/CyberGuardian";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       </main>
       <ChatBot />
       <CyberChallenge />
+      <CyberGuardian />
       <Footer />
     </div>
   );

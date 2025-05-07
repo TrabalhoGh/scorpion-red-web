@@ -42,7 +42,7 @@ const AISecurityTraining = () => {
                   <Card className="bg-scorpion-gray border-scorpion-gray/50">
                     <CardHeader className="pb-2">
                       <CardTitle className="text-center">
-                        <Trophy className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
+                        <Trophy className="h-8 w-8 text-scorpion-red mx-auto mb-2" />
                         Leaderboards
                       </CardTitle>
                     </CardHeader>
@@ -56,7 +56,7 @@ const AISecurityTraining = () => {
                   <Card className="bg-scorpion-gray border-scorpion-gray/50">
                     <CardHeader className="pb-2">
                       <CardTitle className="text-center">
-                        <Medal className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
+                        <Medal className="h-8 w-8 text-scorpion-red mx-auto mb-2" />
                         Digital Badges
                       </CardTitle>
                     </CardHeader>
@@ -70,7 +70,7 @@ const AISecurityTraining = () => {
                   <Card className="bg-scorpion-gray border-scorpion-gray/50">
                     <CardHeader className="pb-2">
                       <CardTitle className="text-center">
-                        <Star className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
+                        <Star className="h-8 w-8 text-scorpion-red mx-auto mb-2" />
                         Point System
                       </CardTitle>
                     </CardHeader>
@@ -158,8 +158,8 @@ const AISecurityTraining = () => {
                           <TableCell className="font-medium">Phishing Emails</TableCell>
                           <TableCell>
                             <div className="flex">
-                              <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                              <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                              <Star className="h-4 w-4 fill-scorpion-red text-scorpion-red" />
+                              <Star className="h-4 w-4 fill-scorpion-red text-scorpion-red" />
                               <Star className="h-4 w-4 text-gray-500" />
                             </div>
                           </TableCell>
@@ -169,9 +169,9 @@ const AISecurityTraining = () => {
                           <TableCell className="font-medium">Social Engineering</TableCell>
                           <TableCell>
                             <div className="flex">
-                              <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                              <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                              <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                              <Star className="h-4 w-4 fill-scorpion-red text-scorpion-red" />
+                              <Star className="h-4 w-4 fill-scorpion-red text-scorpion-red" />
+                              <Star className="h-4 w-4 fill-scorpion-red text-scorpion-red" />
                             </div>
                           </TableCell>
                           <TableCell>100-300</TableCell>
@@ -180,8 +180,8 @@ const AISecurityTraining = () => {
                           <TableCell className="font-medium">Password Attacks</TableCell>
                           <TableCell>
                             <div className="flex">
-                              <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                              <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                              <Star className="h-4 w-4 fill-scorpion-red text-scorpion-red" />
+                              <Star className="h-4 w-4 fill-scorpion-red text-scorpion-red" />
                               <Star className="h-4 w-4 text-gray-500" />
                             </div>
                           </TableCell>

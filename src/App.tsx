@@ -14,13 +14,6 @@ import React, { useEffect } from "react";
 
 // Debug to verify Button component is accessible
 console.log("App.tsx loading...");
-try {
-  // Check if Button is importable
-  const Button = require("@/components/ui/button").Button;
-  console.log("Button component successfully imported:", Button);
-} catch (e) {
-  console.error("Failed to import Button component:", e);
-}
 
 const queryClient = new QueryClient();
 

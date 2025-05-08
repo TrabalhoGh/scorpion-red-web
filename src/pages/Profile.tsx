@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -12,24 +11,18 @@ import { toast } from "sonner";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import { Session } from "@supabase/supabase-js";
+import { Profile as ProfileType } from "@/types/database";
 
-type Profile = {
-  user_id: string;
-  full_name: string;
-  email: string;
-  state: string;
-  description: string;
-  created_at?: string;
-};
+type UserType = "lawyer" | "client" | null;
 
 const Profile = () => {
   const navigate = useNavigate();
   const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<ProfileType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-  const [userType, setUserType] = useState<"lawyer" | "client" | null>(null);
-  const [formData, setFormData] = useState<Partial<Profile>>({});
+  const [userType, setUserType] = useState<UserType>(null);
+  const [formData, setFormData] = useState<Partial<ProfileType>>({});
 
   useEffect(() => {
     // Check for existing session
@@ -42,7 +35,7 @@ const Profile = () => {
       }
       
       // Get user type from meta data
-      const type = session?.user?.user_metadata?.user_type as "lawyer" | "client";
+      const type = session?.user?.user_metadata?.user_type as UserType;
       setUserType(type);
       
       // Fetch profile data
@@ -58,14 +51,16 @@ const Profile = () => {
         return;
       }
       
-      const type = session?.user?.user_metadata?.user_type as "lawyer" | "client";
+      const type = session?.user?.user_metadata?.user_type as UserType;
       setUserType(type);
     });
 
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const fetchProfile = async (userId: string, type: "lawyer" | "client") => {
+  const fetchProfile = async (userId: string, type: UserType) => {
+    if (!type) return;
+    
     try {
       setIsLoading(true);
       
@@ -119,7 +114,7 @@ const Profile = () => {
       }
 
       toast.success("Perfil atualizado com sucesso!");
-      setProfile({...profile!, ...formData as Profile});
+      setProfile({...profile!, ...formData as ProfileType});
       setIsEditing(false);
     } catch (error) {
       toast.error("Ocorreu um erro ao atualizar o perfil.");

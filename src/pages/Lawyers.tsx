@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,15 +8,7 @@ import { toast } from "sonner";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import { useNavigate } from "react-router-dom";
-
-type Lawyer = {
-  id: string;
-  user_id: string;
-  full_name: string;
-  email: string;
-  state: string;
-  description: string;
-};
+import { Lawyer } from "@/types/database";
 
 const Lawyers = () => {
   const [lawyers, setLawyers] = useState<Lawyer[]>([]);

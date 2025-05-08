@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +9,7 @@ import { Shield, UserPlus } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import Navbar from "@/components/navigation/Navbar";
@@ -80,6 +79,18 @@ const Register = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        navigate("/profile");
+      }
+    };
+    
+    checkSession();
+  }, [navigate]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -117,8 +128,10 @@ const Register = () => {
 
       if (authData.user) {
         // 2. Adicionar informações do perfil
+        const tableName = values.userType === "lawyer" ? "lawyers" : "clients";
+        
         const { error: profileError } = await supabase
-          .from(values.userType === "lawyer" ? "lawyers" : "clients")
+          .from(tableName)
           .insert([
             {
               user_id: authData.user.id,
@@ -131,7 +144,6 @@ const Register = () => {
 
         if (profileError) {
           toast.error("Erro ao criar perfil: " + profileError.message);
-          // Tentar remover o usuário para evitar inconsistência
           return;
         }
 
@@ -284,7 +296,7 @@ const Register = () => {
                       <FormLabel>
                         {watchUserType === "lawyer" 
                           ? "Descrição dos seus serviços" 
-                          : "Descrição do caso ou ajuda necessária"}
+                          : "Descrição do caso ou ajuda necess��ria"}
                       </FormLabel>
                       <FormControl>
                         <Textarea 

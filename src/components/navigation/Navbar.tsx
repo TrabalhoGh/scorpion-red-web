@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Shield, Phone } from "lucide-react";
+import { Menu, X, Shield, LogIn, UserPlus } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -116,12 +116,27 @@ const Navbar = () => {
                   Contato
                 </Link>
               </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link to="/lawyers" className="text-white hover:text-scorpion-red transition-colors px-3 py-2 rounded-md hover:bg-scorpion-gray/20">
+                  Advogados
+                </Link>
+              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
           
-          <Button className="bg-scorpion-red hover:bg-scorpion-red/80 text-white flex items-center gap-2 shadow-lg shadow-scorpion-red/20">
-            <Phone className="h-4 w-4" /> Linha de Emergência
-          </Button>
+          <div className="flex space-x-2">
+            <Button asChild variant="ghost" className="text-white hover:text-scorpion-red hover:bg-scorpion-gray/20 border border-scorpion-gray/30">
+              <Link to="/login" className="flex items-center gap-2">
+                <LogIn className="h-4 w-4" /> Entrar
+              </Link>
+            </Button>
+            <Button asChild className="bg-scorpion-red hover:bg-scorpion-red/80 text-white">
+              <Link to="/register" className="flex items-center gap-2">
+                <UserPlus className="h-4 w-4" /> Cadastre-se
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -180,12 +195,35 @@ const Navbar = () => {
               <span className="w-1 h-6 bg-scorpion-red/50"></span>
               Contato
             </Link>
-            <Button 
-              className="bg-scorpion-red hover:bg-scorpion-red/80 text-white w-full flex items-center justify-center gap-2 mt-2"
+            <Link 
+              to="/lawyers" 
+              className="text-white hover:text-scorpion-red py-2 transition-colors flex items-center gap-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              <Phone className="h-4 w-4" /> Linha de Emergência
-            </Button>
+              <span className="w-1 h-6 bg-scorpion-red/50"></span>
+              Advogados
+            </Link>
+            <div className="flex flex-col gap-2 pt-2">
+              <Button 
+                asChild
+                variant="ghost" 
+                className="w-full justify-center text-white hover:text-scorpion-red hover:bg-scorpion-gray/20 border border-scorpion-gray/30"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Link to="/login" className="flex items-center gap-2">
+                  <LogIn className="h-4 w-4" /> Entrar
+                </Link>
+              </Button>
+              <Button 
+                asChild
+                className="w-full justify-center bg-scorpion-red hover:bg-scorpion-red/80 text-white"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Link to="/register" className="flex items-center gap-2">
+                  <UserPlus className="h-4 w-4" /> Cadastre-se
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       )}

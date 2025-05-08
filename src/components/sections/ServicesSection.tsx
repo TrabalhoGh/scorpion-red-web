@@ -5,11 +5,6 @@ import { Link } from "react-router-dom";
 
 const services = [
   {
-    title: "Surveillance Systems",
-    description: "State-of-the-art camera systems, monitoring and alert solutions.",
-    icon: "👁️",
-  },
-  {
     title: "Consulting Services",
     description: "Expert security consulting to identify vulnerabilities and improve your security posture.",
     icon: <Briefcase className="text-scorpion-red w-10 h-10" />,

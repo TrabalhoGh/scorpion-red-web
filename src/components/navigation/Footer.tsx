@@ -51,16 +51,6 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4 text-scorpion-red">Our Services</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/services/physical" className="text-white/70 hover:text-scorpion-red transition-colors">
-                  Physical Security
-                </Link>
-              </li>
-              <li>
-                <Link to="/services/surveillance" className="text-white/70 hover:text-scorpion-red transition-colors">
-                  Surveillance Systems
-                </Link>
-              </li>
-              <li>
                 <Link to="/services/risk" className="text-white/70 hover:text-scorpion-red transition-colors">
                   Risk Assessment
                 </Link>

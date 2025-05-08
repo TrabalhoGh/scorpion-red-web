@@ -57,7 +57,7 @@ const Navbar = () => {
                             Todos os Serviços
                           </div>
                           <p className="text-sm leading-tight text-white/70">
-                            Conheça nossa gama completa de serviços de segurança física e digital.
+                            Conheça nossa gama completa de serviços de segurança digital.
                           </p>
                         </Link>
                       </NavigationMenuLink>
@@ -71,19 +71,6 @@ const Navbar = () => {
                           <div className="text-sm font-medium leading-none">Serviços Jurídicos</div>
                           <p className="line-clamp-2 text-sm leading-snug text-white/70">
                             Proteção legal especializada para homens.
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/services"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-scorpion-gray hover:text-white focus:bg-scorpion-gray focus:text-white"
-                        >
-                          <div className="text-sm font-medium leading-none">Segurança Física</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-white/70">
-                            Proteção pessoal e monitoramento.
                           </p>
                         </Link>
                       </NavigationMenuLink>

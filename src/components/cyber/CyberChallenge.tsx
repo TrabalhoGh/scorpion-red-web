@@ -45,9 +45,9 @@ const CyberChallenge = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-scorpion-gray border-blue-500/30 text-center">
+          <Card className="bg-scorpion-gray border-scorpion-red/30 text-center">
             <CardHeader>
-              <Shield className="h-12 w-12 text-blue-500 mx-auto mb-4" />
+              <Shield className="h-12 w-12 text-scorpion-red mx-auto mb-4" />
               <CardTitle className="text-xl">Defense Training</CardTitle>
             </CardHeader>
             <CardContent>
@@ -57,9 +57,9 @@ const CyberChallenge = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-scorpion-gray border-yellow-500/30 text-center">
+          <Card className="bg-scorpion-gray border-scorpion-red/30 text-center">
             <CardHeader>
-              <Trophy className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
+              <Trophy className="h-12 w-12 text-scorpion-red mx-auto mb-4" />
               <CardTitle className="text-xl">Earn Points</CardTitle>
             </CardHeader>
             <CardContent>

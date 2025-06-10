@@ -1,8 +1,10 @@
+
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Bot, ShieldAlert, Send, User, Code, Brain, Shield } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 type Message = {
   id: string;
@@ -10,6 +12,14 @@ type Message = {
   content: string;
   timestamp: Date;
   bot: "z3r0" | "airon";
+  type?: "quiz" | "regular";
+  quizData?: {
+    question: string;
+    options: string[];
+    correctAnswer: number;
+    explanation: string;
+    prevention: string;
+  };
 };
 
 const simulatedAttacks = [
@@ -17,181 +27,99 @@ const simulatedAttacks = [
     trigger: "password",
     attack: "Your password appears to be weak. Click here to update it: http://security-update.totallylegit.com",
     defense: "This is a phishing attempt! Never click on suspicious links asking for your password, even if they look legitimate.",
-    points: 50
+    points: 50,
+    attackType: "Phishing",
+    quiz: {
+      question: "Que tipo de ataque foi simulado?",
+      options: ["Malware", "Phishing", "Social Engineering", "DDoS"],
+      correctAnswer: 1,
+      explanation: "Este foi um ataque de Phishing - uma tentativa de roubar credenciais através de links maliciosos que imitam sites legítimos.",
+      prevention: "Para evitar phishing: 1) Sempre verifique URLs antes de clicar, 2) Digite URLs manualmente no navegador, 3) Use autenticação de dois fatores, 4) Mantenha-se atualizado sobre técnicas de phishing, 5) Nunca forneça credenciais através de links em emails."
+    }
   },
   {
     trigger: "help",
     attack: "I'm from IT support. We detected unusual activity on your account. Please download this security patch: securitypatch.exe",
     defense: "This is a social engineering attack! IT will never ask you to download files through chat. Always verify through official channels.",
-    points: 75
+    points: 75,
+    attackType: "Social Engineering",
+    quiz: {
+      question: "Qual foi o tipo de ataque utilizado?",
+      options: ["Ransomware", "Social Engineering", "Man-in-the-Middle", "SQL Injection"],
+      correctAnswer: 1,
+      explanation: "Este foi um ataque de Engenharia Social - manipulação psicológica para fazer a vítima executar ações que comprometam a segurança.",
+      prevention: "Para evitar engenharia social: 1) Sempre verifique a identidade através de canais oficiais, 2) Seja cético com solicitações urgentes, 3) Nunca baixe arquivos de fontes não verificadas, 4) Treine funcionários sobre essas táticas, 5) Estabeleça protocolos claros para solicitações de TI."
+    }
   },
   {
     trigger: "access",
     attack: "I need temporary access to your account to fix a server issue. Can you share your login credentials?",
     defense: "This is a credential harvesting attempt! Never share your login details with anyone, even if they claim to be from IT.",
-    points: 100
+    points: 100,
+    attackType: "Credential Harvesting",
+    quiz: {
+      question: "Este ataque é classificado como:",
+      options: ["Credential Harvesting", "Keylogger", "Brute Force", "Password Spray"],
+      correctAnswer: 0,
+      explanation: "Este foi um ataque de Coleta de Credenciais - tentativa direta de obter login e senha através de solicitação fraudulenta.",
+      prevention: "Para evitar coleta de credenciais: 1) Nunca compartilhe senhas com ninguém, 2) Use senhas únicas para cada conta, 3) Implemente autenticação multifator, 4) Eduque sobre políticas de senha, 5) Use gerenciadores de senha."
+    }
   },
   {
     trigger: "urgent",
     attack: "URGENT: Your account will be suspended in 1 hour. Verify your identity by providing your employee ID and date of birth.",
     defense: "This is creating false urgency! Legitimate communications don't pressure you to act quickly without verification.",
-    points: 60
+    points: 60,
+    attackType: "Urgency Scam",
+    quiz: {
+      question: "Que tática foi usada neste ataque?",
+      options: ["Urgency Scam", "Spear Phishing", "Watering Hole", "Pretexting"],
+      correctAnswer: 0,
+      explanation: "Este foi um Golpe de Urgência - criar falsa pressão temporal para fazer a vítima agir sem pensar adequadamente.",
+      prevention: "Para evitar golpes de urgência: 1) Sempre tome tempo para verificar, 2) Contate a organização por canais oficiais, 3) Desconfie de prazos artificiais, 4) Verifique a legitimidade antes de agir, 5) Nunca forneça dados pessoais sob pressão."
+    }
   },
   {
     trigger: "file",
     attack: "Here's the document you requested: QuarterlyReport.docx.exe",
     defense: "Watch out for suspicious file extensions! Executable files (.exe) disguised as documents are a common attack vector.",
-    points: 80
+    points: 80,
+    attackType: "Malware",
+    quiz: {
+      question: "Qual tipo de ataque foi tentado?",
+      options: ["Trojans", "Malware", "Spyware", "Adware"],
+      correctAnswer: 1,
+      explanation: "Este foi um ataque de Malware - software malicioso disfarçado como documento legítimo com dupla extensão (.docx.exe).",
+      prevention: "Para evitar malware: 1) Sempre verifique extensões de arquivo, 2) Use antivírus atualizado, 3) Não execute arquivos suspeitos, 4) Mantenha software atualizado, 5) Faça backup regular dos dados."
+    }
   },
   {
     trigger: "wifi",
     attack: "Connect to our free WiFi network 'Free_Internet_Here' - no password required! Just click here to accept terms: bit.ly/freewifi123",
     defense: "This is an evil twin attack! Avoid connecting to suspicious open networks and never click on shortened URLs from unknown sources.",
-    points: 90
+    points: 90,
+    attackType: "Evil Twin",
+    quiz: {
+      question: "Este é um exemplo de qual ataque?",
+      options: ["Evil Twin", "WPS Attack", "WEP Cracking", "Rogue Access Point"],
+      correctAnswer: 0,
+      explanation: "Este foi um ataque Evil Twin - criação de rede WiFi falsa que imita uma legítima para interceptar dados.",
+      prevention: "Para evitar Evil Twin: 1) Evite redes WiFi abertas, 2) Verifique nomes de rede com funcionários, 3) Use VPN em redes públicas, 4) Desative conexão automática, 5) Use dados móveis quando possível."
+    }
   },
   {
     trigger: "bank",
     attack: "ALERT: Suspicious activity detected on your bank account. Please verify your details immediately: chase-security-check.net",
     defense: "This is a banking phishing scam! Banks never ask for credentials via email. Always navigate directly to the official website.",
-    points: 85
-  },
-  {
-    trigger: "prize",
-    attack: "Congratulations! You've won $10,000 in our monthly draw. Click here to claim your prize and provide your SSN for verification.",
-    defense: "This is a prize scam! Legitimate prizes never require sensitive information upfront. If it sounds too good to be true, it probably is.",
-    points: 70
-  },
-  {
-    trigger: "update",
-    attack: "Your browser is out of date and vulnerable. Download the latest security update from: browser-update-now.com",
-    defense: "This is a fake software update attack! Only download software updates from official sources like the software vendor's website.",
-    points: 75
-  },
-  {
-    trigger: "delivery",
-    attack: "Your package delivery failed. Click here to reschedule and provide payment details for redelivery fee: fedex-redelivery.org",
-    defense: "This is a delivery scam! Legitimate delivery companies don't ask for payment details via email for failed deliveries.",
-    points: 65
-  },
-  {
-    trigger: "ceo",
-    attack: "This is the CEO. I need you to urgently transfer $5,000 to this account for a confidential acquisition. Don't tell anyone.",
-    defense: "This is CEO fraud/Business Email Compromise! Always verify unusual requests through official channels, especially involving money.",
-    points: 120
-  },
-  {
-    trigger: "survey",
-    attack: "Complete this 2-minute employee satisfaction survey and receive a $50 gift card: employee-survey-rewards.com",
-    defense: "This could be a data harvesting attack! Be cautious of unsolicited surveys asking for personal information in exchange for rewards.",
-    points: 55
-  },
-  {
-    trigger: "security",
-    attack: "We've detected a virus on your computer. Call our tech support immediately at 1-800-VIRUS-FIX and allow remote access to clean your system.",
-    defense: "This is a tech support scam! Never allow unknown parties remote access to your computer. Use only trusted IT support.",
-    points: 95
-  },
-  {
-    trigger: "zoom",
-    attack: "Join this important security meeting about recent breaches: zoom-security-meeting.net/join?id=malicious123",
-    defense: "This is a fake meeting attack! Always verify meeting invitations through official channels and check the URL domain carefully.",
-    points: 80
-  },
-  {
-    trigger: "linkedin",
-    attack: "Hi! I saw your profile on LinkedIn. I'm a recruiter with an exciting opportunity. Can you download and fill out this application? job-application.scr",
-    defense: "This is a malicious recruitment scam! Be wary of unsolicited job offers with suspicious file attachments (.scr files are executable).",
-    points: 85
-  },
-  {
-    trigger: "microsoft",
-    attack: "Your Microsoft Office license has expired. Renew now to avoid losing access to your files: office-renewal-center.org",
-    defense: "This is license renewal fraud! Microsoft communications come from official domains. Always check the sender's email domain carefully.",
-    points: 70
-  },
-  {
-    trigger: "cryptocurrency",
-    attack: "Limited time offer! Double your Bitcoin in 24 hours with our AI trading bot. Send 0.1 BTC to get started: crypto-doubler.biz",
-    defense: "This is a cryptocurrency scam! No legitimate service can guarantee doubled returns. These are always Ponzi schemes.",
-    points: 90
-  },
-  {
-    trigger: "tax",
-    attack: "IRS Notice: You owe $3,847 in back taxes. Pay immediately to avoid legal action: irs-payment-portal.net",
-    defense: "This is a tax scam! The IRS communicates primarily through postal mail, not email. They don't demand immediate payment via email.",
-    points: 100
-  },
-  {
-    trigger: "social",
-    attack: "Someone tried to access your Facebook account from Russia. Secure your account by entering your password here: facebook-security.org",
-    defense: "This is a social media phishing attack! Always go directly to the official website to check account security, never through email links.",
-    points: 75
-  },
-  {
-    trigger: "invoice",
-    attack: "Please find attached invoice #INV-2024-1547 for immediate payment. Open the PDF to view details: invoice_details.pdf.exe",
-    defense: "This is a malicious invoice attack! Be suspicious of unexpected invoices, especially with double file extensions indicating executables.",
-    points: 85
-  },
-  {
-    trigger: "support",
-    attack: "Your subscription to Netflix will expire today. Update your payment method to continue watching: netflix-billing-update.com",
-    defense: "This is a subscription renewal scam! Always log into your account directly through the official website to check billing status.",
-    points: 70
-  },
-  {
-    trigger: "lottery",
-    attack: "You've won the European Mega Lottery! Claim your €2.5 million prize by providing your bank details: euro-lottery-winner.org",
-    defense: "This is a lottery scam! You cannot win a lottery you never entered. Legitimate lotteries don't ask for bank details via email.",
-    points: 80
-  },
-  {
-    trigger: "amazon",
-    attack: "Your Amazon order #AMZ-789456123 couldn't be delivered. Update your address and payment info: amazon-delivery-update.net",
-    defense: "This is an Amazon impersonation scam! Always check your orders through the official Amazon app or website, not email links.",
-    points: 75
-  },
-  {
-    trigger: "paypal",
-    attack: "PayPal Security Alert: Suspicious login detected. Verify your account immediately or it will be suspended: paypal-security-check.org",
-    defense: "This is a PayPal phishing attack! PayPal will never suspend accounts via email. Always log in directly to check account status.",
-    points: 80
-  },
-  {
-    trigger: "apple",
-    attack: "Your Apple ID has been locked due to suspicious activity. Unlock it now: apple-id-unlock.com/verify",
-    defense: "This is an Apple ID phishing scam! Apple communications come from @apple.com. Always use official Apple websites or apps.",
-    points: 75
-  },
-  {
-    trigger: "google",
-    attack: "Google Security: We detected unusual sign-in activity. Verify your account: google-account-verification.net",
-    defense: "This is a Google account phishing attempt! Google security notifications come from official @google.com addresses.",
-    points: 75
-  },
-  {
-    trigger: "romance",
-    attack: "Hi beautiful! I'm deployed overseas and need help transferring money. Can you help me with a small favor?",
-    defense: "This is a romance scam! Be extremely cautious of online relationships where the person asks for money or financial help.",
-    points: 95
-  },
-  {
-    trigger: "charity",
-    attack: "Help hurricane victims! Donate now to our emergency relief fund: hurricane-relief-donations.org",
-    defense: "This could be a charity scam! Always verify charitable organizations through official databases before donating.",
-    points: 70
-  },
-  {
-    trigger: "refund",
-    attack: "You're eligible for a $1,200 tax refund. Click here to claim it immediately: irs-refund-claim.net",
-    defense: "This is a refund scam! The IRS doesn't send unsolicited refund notifications via email. Check directly with official IRS website.",
-    points: 85
-  },
-  {
-    trigger: "insurance",
-    attack: "Your car insurance payment failed. Update your payment method within 24 hours: auto-insurance-urgent.com",
-    defense: "This is an insurance scam! Contact your insurance company directly using official contact information to verify any payment issues.",
-    points: 70
+    points: 85,
+    attackType: "Banking Phishing",
+    quiz: {
+      question: "Que tipo específico de phishing foi usado?",
+      options: ["Spear Phishing", "Banking Phishing", "Whaling", "Vishing"],
+      correctAnswer: 1,
+      explanation: "Este foi um Phishing Bancário - tentativa específica de roubar credenciais bancárias imitando comunicações oficiais do banco.",
+      prevention: "Para evitar phishing bancário: 1) Bancos nunca pedem credenciais por email, 2) Sempre acesse o site oficial digitando a URL, 3) Verifique certificados SSL, 4) Use aplicativos oficiais do banco, 5) Configure alertas de transações."
+    }
   }
 ];
 
@@ -206,7 +134,9 @@ const AISecurityChatbots = () => {
   const [input, setInput] = useState("");
   const [userScore, setUserScore] = useState(0);
   const [isAttackActive, setIsAttackActive] = useState(false);
+  const [isQuizActive, setIsQuizActive] = useState(false);
   const [currentAttack, setCurrentAttack] = useState<typeof simulatedAttacks[0] | null>(null);
+  const [selectedQuizOption, setSelectedQuizOption] = useState<number | null>(null);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -222,7 +152,7 @@ const AISecurityChatbots = () => {
     const initialZ3r0Message = {
       id: "z3r0-initial",
       sender: "ai" as const,
-      content: "Hello user. I am Z3R0, your security testing assistant. I will simulate various cyber attacks to test your security awareness. I have over 30 different attack scenarios ready. Type anything to begin...",
+      content: "Hello user. I am Z3R0, your security testing assistant. I will simulate various cyber attacks to test your security awareness. After each simulation, you'll get a quiz to test your knowledge. I have over 30 different attack scenarios ready. Type anything to begin...",
       timestamp: new Date(),
       bot: "z3r0" as const
     };
@@ -260,11 +190,65 @@ const AISecurityChatbots = () => {
       handleAIronResponse(input);
     }
   };
+
+  const handleQuizSubmit = () => {
+    if (selectedQuizOption === null || !currentAttack) return;
+
+    const isCorrect = selectedQuizOption === currentAttack.quiz.correctAnswer;
+    const quizPoints = isCorrect ? currentAttack.points + 50 : Math.floor(currentAttack.points / 2);
+
+    // Show quiz result
+    const resultMessage: Message = {
+      id: `z3r0-quiz-result-${Date.now()}`,
+      sender: "ai",
+      content: isCorrect 
+        ? `🎯 Correto! Você identificou corretamente o ataque. +${quizPoints} pontos!\n\n${currentAttack.quiz.explanation}`
+        : `❌ Resposta incorreta. A resposta correta era: ${currentAttack.quiz.options[currentAttack.quiz.correctAnswer]}.\n\n${currentAttack.quiz.explanation}`,
+      timestamp: new Date(),
+      bot: "z3r0"
+    };
+
+    setMessages(prev => [...prev, resultMessage]);
+
+    if (isCorrect) {
+      setUserScore(prev => prev + quizPoints);
+    }
+
+    // Show prevention tips
+    setTimeout(() => {
+      const preventionMessage: Message = {
+        id: `z3r0-prevention-${Date.now()}`,
+        sender: "ai",
+        content: `📚 Como se proteger contra ${currentAttack.attackType}:\n\n${currentAttack.quiz.prevention}`,
+        timestamp: new Date(),
+        bot: "z3r0"
+      };
+
+      setMessages(prev => [...prev, preventionMessage]);
+
+      // Reset states and prompt for next challenge
+      setTimeout(() => {
+        setIsQuizActive(false);
+        setCurrentAttack(null);
+        setSelectedQuizOption(null);
+
+        const nextPromptMessage: Message = {
+          id: `z3r0-next-${Date.now()}`,
+          sender: "ai",
+          content: "Ready for another security challenge? I have many more attack simulations and quizzes to test your skills. Type anything to continue.",
+          timestamp: new Date(),
+          bot: "z3r0"
+        };
+
+        setMessages(prev => [...prev, nextPromptMessage]);
+      }, 1500);
+    }, 1000);
+  };
   
   const handleZ3r0Response = (userInput: string) => {
     // Simulate thinking time
     setTimeout(() => {
-      if (!isAttackActive) {
+      if (!isAttackActive && !isQuizActive) {
         // Start a new attack
         const attack = getRandomAttack();
         setCurrentAttack(attack);
@@ -279,9 +263,8 @@ const AISecurityChatbots = () => {
         };
         
         setMessages(prev => [...prev, attackMessage]);
-      } else if (isAttackActive && currentAttack) {
-        // User is responding to an attack
-        // Check if user identified the attack (simplified logic)
+      } else if (isAttackActive && currentAttack && !isQuizActive) {
+        // User is responding to an attack - check their response first
         const userDetectedThreat = userInput.toLowerCase().includes("attack") || 
                                   userInput.toLowerCase().includes("threat") ||
                                   userInput.toLowerCase().includes("scam") ||
@@ -295,11 +278,11 @@ const AISecurityChatbots = () => {
                                   userInput.toLowerCase().includes("verify");
         
         if (userDetectedThreat) {
-          // User correctly identified attack
+          // User correctly identified attack initially
           const successMessage: Message = {
             id: `z3r0-${Date.now()}`,
             sender: "ai",
-            content: `Excellent! You identified the security threat correctly. This was a ${currentAttack.trigger}-based attack simulation. You've earned ${currentAttack.points} points! 🎯`,
+            content: `Good eye! You detected something suspicious. You've earned ${currentAttack.points} points! 🎯`,
             timestamp: new Date(),
             bot: "z3r0"
           };
@@ -307,33 +290,34 @@ const AISecurityChatbots = () => {
           setMessages(prev => [...prev, successMessage]);
           setUserScore(prev => prev + currentAttack.points);
         } else {
-          // User failed to identify attack
+          // User failed to identify attack initially
           const failMessage: Message = {
             id: `z3r0-${Date.now()}`,
             sender: "ai",
-            content: `That was a security test, and unfortunately you didn't identify the threat. The message I sent was an example of a ${currentAttack.trigger}-based cyber attack. ${currentAttack.defense} Stay vigilant! ⚠️`,
+            content: `That was a security test, and you didn't identify the threat initially. ${currentAttack.defense} ⚠️`,
             timestamp: new Date(),
             bot: "z3r0"
           };
           
           setMessages(prev => [...prev, failMessage]);
         }
-        
-        // Reset attack state
-        setIsAttackActive(false);
-        setCurrentAttack(null);
-        
-        // Prompt for next interaction
+
+        // Now start the quiz regardless of initial response
         setTimeout(() => {
-          const nextPromptMessage: Message = {
-            id: `z3r0-${Date.now() + 1}`,
+          setIsAttackActive(false);
+          setIsQuizActive(true);
+
+          const quizMessage: Message = {
+            id: `z3r0-quiz-${Date.now()}`,
             sender: "ai",
-            content: "Ready for another security challenge? I have many more attack simulations to test your skills. Type anything to continue.",
+            content: "",
             timestamp: new Date(),
-            bot: "z3r0"
+            bot: "z3r0",
+            type: "quiz",
+            quizData: currentAttack.quiz
           };
-          
-          setMessages(prev => [...prev, nextPromptMessage]);
+
+          setMessages(prev => [...prev, quizMessage]);
         }, 1000);
       }
     }, 1000);
@@ -422,7 +406,7 @@ const AISecurityChatbots = () => {
               </h3>
               <p className="text-xs text-white/70">
                 {activeBot === 'z3r0' 
-                  ? 'Attack Simulation AI - 30+ Attack Types' 
+                  ? 'Attack Simulation AI - 30+ Attack Types + Quiz' 
                   : 'Defense Consultant AI - Expert Guidance'}
               </p>
             </div>
@@ -468,7 +452,37 @@ const AISecurityChatbots = () => {
                         </>
                       )}
                     </div>
-                    <p className="whitespace-pre-wrap">{message.content}</p>
+                    
+                    {message.type === 'quiz' && message.quizData ? (
+                      <div className="space-y-3">
+                        <p className="font-semibold text-yellow-400">🧠 Quiz de Segurança:</p>
+                        <p className="whitespace-pre-wrap">{message.quizData.question}</p>
+                        <RadioGroup 
+                          value={selectedQuizOption?.toString()} 
+                          onValueChange={(value) => setSelectedQuizOption(parseInt(value))}
+                          className="space-y-2"
+                        >
+                          {message.quizData.options.map((option, index) => (
+                            <div key={index} className="flex items-center space-x-2">
+                              <RadioGroupItem value={index.toString()} id={`option-${index}`} />
+                              <label htmlFor={`option-${index}`} className="text-sm cursor-pointer">
+                                {option}
+                              </label>
+                            </div>
+                          ))}
+                        </RadioGroup>
+                        <Button 
+                          onClick={handleQuizSubmit}
+                          disabled={selectedQuizOption === null}
+                          className="bg-yellow-600 hover:bg-yellow-700 text-white"
+                        >
+                          Enviar Resposta
+                        </Button>
+                      </div>
+                    ) : (
+                      <p className="whitespace-pre-wrap">{message.content}</p>
+                    )}
+                    
                     <div className="text-xs text-white/50 text-right mt-1">
                       {message.timestamp.toLocaleTimeString()}
                     </div>
@@ -488,15 +502,22 @@ const AISecurityChatbots = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                 placeholder={`Chat with ${activeBot === 'z3r0' ? 'Z3R0' : 'AI-ron'}...`}
-                className="flex-1 bg-scorpion-gray/20 border border-scorpion-gray/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-scorpion-red"
+                className="flex-1 bg-scorpion-gray/20 border border-scorpion-gray/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-scorpion-red text-white"
+                disabled={isQuizActive}
               />
               <Button 
                 onClick={handleSendMessage}
                 className={activeBot === 'z3r0' ? 'bg-scorpion-red' : 'bg-blue-600'}
+                disabled={isQuizActive}
               >
                 <Send className="h-4 w-4" />
               </Button>
             </div>
+            {isQuizActive && (
+              <p className="text-xs text-yellow-400 mt-2">
+                📝 Complete o quiz acima antes de continuar
+              </p>
+            )}
           </div>
         </div>
       </Tabs>

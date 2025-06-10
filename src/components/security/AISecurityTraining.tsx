@@ -10,6 +10,18 @@ const AISecurityTraining = () => {
   const [activeTab, setActiveTab] = useState<'z3r0' | 'airon'>('z3r0');
   const [showChatbots, setShowChatbots] = useState(false);
   
+  // Function to activate the simulator
+  const handleStartSimulator = () => {
+    setShowChatbots(true);
+    // Scroll to the simulator section
+    setTimeout(() => {
+      const simulatorElement = document.getElementById('security-simulator');
+      if (simulatorElement) {
+        simulatorElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+  
   return (
     <section className="py-20 bg-scorpion-gray/50">
       <div className="container mx-auto px-4">
@@ -234,7 +246,7 @@ const AISecurityTraining = () => {
               <div className="mt-8 text-center">
                 <Button 
                   className={`${activeTab === 'z3r0' ? 'bg-scorpion-red' : 'bg-blue-600'} hover:opacity-90`}
-                  onClick={() => setShowChatbots(!showChatbots)}
+                  onClick={handleStartSimulator}
                 >
                   {showChatbots ? 'Hide Demo' : 'Try Demo'}
                 </Button>
@@ -245,7 +257,7 @@ const AISecurityTraining = () => {
 
         {/* Chat Interface - Only show when demo is activated */}
         {showChatbots && (
-          <div className="mt-12 animate-fade-in">
+          <div className="mt-12 animate-fade-in" id="security-simulator">
             <AISecurityChatbots />
           </div>
         )}
@@ -256,7 +268,10 @@ const AISecurityTraining = () => {
               <h3 className="text-2xl font-bold mb-2">Ready to gamify your security training?</h3>
               <p className="text-white/70">Transform how your team learns about cybersecurity with our dual AI system</p>
             </div>
-            <Button className="bg-scorpion-red hover:bg-scorpion-red/80 px-6">
+            <Button 
+              className="bg-scorpion-red hover:bg-scorpion-red/80 px-6"
+              onClick={handleStartSimulator}
+            >
               Get Started
             </Button>
           </div>

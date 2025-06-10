@@ -132,6 +132,66 @@ const simulatedAttacks = [
     attack: "Please find attached invoice #INV-2024-1547 for immediate payment. Open the PDF to view details: invoice_details.pdf.exe",
     defense: "This is a malicious invoice attack! Be suspicious of unexpected invoices, especially with double file extensions indicating executables.",
     points: 85
+  },
+  {
+    trigger: "support",
+    attack: "Your subscription to Netflix will expire today. Update your payment method to continue watching: netflix-billing-update.com",
+    defense: "This is a subscription renewal scam! Always log into your account directly through the official website to check billing status.",
+    points: 70
+  },
+  {
+    trigger: "lottery",
+    attack: "You've won the European Mega Lottery! Claim your €2.5 million prize by providing your bank details: euro-lottery-winner.org",
+    defense: "This is a lottery scam! You cannot win a lottery you never entered. Legitimate lotteries don't ask for bank details via email.",
+    points: 80
+  },
+  {
+    trigger: "amazon",
+    attack: "Your Amazon order #AMZ-789456123 couldn't be delivered. Update your address and payment info: amazon-delivery-update.net",
+    defense: "This is an Amazon impersonation scam! Always check your orders through the official Amazon app or website, not email links.",
+    points: 75
+  },
+  {
+    trigger: "paypal",
+    attack: "PayPal Security Alert: Suspicious login detected. Verify your account immediately or it will be suspended: paypal-security-check.org",
+    defense: "This is a PayPal phishing attack! PayPal will never suspend accounts via email. Always log in directly to check account status.",
+    points: 80
+  },
+  {
+    trigger: "apple",
+    attack: "Your Apple ID has been locked due to suspicious activity. Unlock it now: apple-id-unlock.com/verify",
+    defense: "This is an Apple ID phishing scam! Apple communications come from @apple.com. Always use official Apple websites or apps.",
+    points: 75
+  },
+  {
+    trigger: "google",
+    attack: "Google Security: We detected unusual sign-in activity. Verify your account: google-account-verification.net",
+    defense: "This is a Google account phishing attempt! Google security notifications come from official @google.com addresses.",
+    points: 75
+  },
+  {
+    trigger: "romance",
+    attack: "Hi beautiful! I'm deployed overseas and need help transferring money. Can you help me with a small favor?",
+    defense: "This is a romance scam! Be extremely cautious of online relationships where the person asks for money or financial help.",
+    points: 95
+  },
+  {
+    trigger: "charity",
+    attack: "Help hurricane victims! Donate now to our emergency relief fund: hurricane-relief-donations.org",
+    defense: "This could be a charity scam! Always verify charitable organizations through official databases before donating.",
+    points: 70
+  },
+  {
+    trigger: "refund",
+    attack: "You're eligible for a $1,200 tax refund. Click here to claim it immediately: irs-refund-claim.net",
+    defense: "This is a refund scam! The IRS doesn't send unsolicited refund notifications via email. Check directly with official IRS website.",
+    points: 85
+  },
+  {
+    trigger: "insurance",
+    attack: "Your car insurance payment failed. Update your payment method within 24 hours: auto-insurance-urgent.com",
+    defense: "This is an insurance scam! Contact your insurance company directly using official contact information to verify any payment issues.",
+    points: 70
   }
 ];
 
@@ -162,7 +222,7 @@ const AISecurityChatbots = () => {
     const initialZ3r0Message = {
       id: "z3r0-initial",
       sender: "ai" as const,
-      content: "Hello user. I am Z3R0, your security testing assistant. I will simulate various cyber attacks to test your security awareness. I have over 20 different attack scenarios ready. Type anything to begin...",
+      content: "Hello user. I am Z3R0, your security testing assistant. I will simulate various cyber attacks to test your security awareness. I have over 30 different attack scenarios ready. Type anything to begin...",
       timestamp: new Date(),
       bot: "z3r0" as const
     };
@@ -362,7 +422,7 @@ const AISecurityChatbots = () => {
               </h3>
               <p className="text-xs text-white/70">
                 {activeBot === 'z3r0' 
-                  ? 'Attack Simulation AI - 20+ Attack Types' 
+                  ? 'Attack Simulation AI - 30+ Attack Types' 
                   : 'Defense Consultant AI - Expert Guidance'}
               </p>
             </div>

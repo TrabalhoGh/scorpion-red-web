@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Bot, ShieldAlert, Send, User, Code, Brain, Shield } from "lucide-react";
@@ -43,6 +42,96 @@ const simulatedAttacks = [
     attack: "Here's the document you requested: QuarterlyReport.docx.exe",
     defense: "Watch out for suspicious file extensions! Executable files (.exe) disguised as documents are a common attack vector.",
     points: 80
+  },
+  {
+    trigger: "wifi",
+    attack: "Connect to our free WiFi network 'Free_Internet_Here' - no password required! Just click here to accept terms: bit.ly/freewifi123",
+    defense: "This is an evil twin attack! Avoid connecting to suspicious open networks and never click on shortened URLs from unknown sources.",
+    points: 90
+  },
+  {
+    trigger: "bank",
+    attack: "ALERT: Suspicious activity detected on your bank account. Please verify your details immediately: chase-security-check.net",
+    defense: "This is a banking phishing scam! Banks never ask for credentials via email. Always navigate directly to the official website.",
+    points: 85
+  },
+  {
+    trigger: "prize",
+    attack: "Congratulations! You've won $10,000 in our monthly draw. Click here to claim your prize and provide your SSN for verification.",
+    defense: "This is a prize scam! Legitimate prizes never require sensitive information upfront. If it sounds too good to be true, it probably is.",
+    points: 70
+  },
+  {
+    trigger: "update",
+    attack: "Your browser is out of date and vulnerable. Download the latest security update from: browser-update-now.com",
+    defense: "This is a fake software update attack! Only download software updates from official sources like the software vendor's website.",
+    points: 75
+  },
+  {
+    trigger: "delivery",
+    attack: "Your package delivery failed. Click here to reschedule and provide payment details for redelivery fee: fedex-redelivery.org",
+    defense: "This is a delivery scam! Legitimate delivery companies don't ask for payment details via email for failed deliveries.",
+    points: 65
+  },
+  {
+    trigger: "ceo",
+    attack: "This is the CEO. I need you to urgently transfer $5,000 to this account for a confidential acquisition. Don't tell anyone.",
+    defense: "This is CEO fraud/Business Email Compromise! Always verify unusual requests through official channels, especially involving money.",
+    points: 120
+  },
+  {
+    trigger: "survey",
+    attack: "Complete this 2-minute employee satisfaction survey and receive a $50 gift card: employee-survey-rewards.com",
+    defense: "This could be a data harvesting attack! Be cautious of unsolicited surveys asking for personal information in exchange for rewards.",
+    points: 55
+  },
+  {
+    trigger: "security",
+    attack: "We've detected a virus on your computer. Call our tech support immediately at 1-800-VIRUS-FIX and allow remote access to clean your system.",
+    defense: "This is a tech support scam! Never allow unknown parties remote access to your computer. Use only trusted IT support.",
+    points: 95
+  },
+  {
+    trigger: "zoom",
+    attack: "Join this important security meeting about recent breaches: zoom-security-meeting.net/join?id=malicious123",
+    defense: "This is a fake meeting attack! Always verify meeting invitations through official channels and check the URL domain carefully.",
+    points: 80
+  },
+  {
+    trigger: "linkedin",
+    attack: "Hi! I saw your profile on LinkedIn. I'm a recruiter with an exciting opportunity. Can you download and fill out this application? job-application.scr",
+    defense: "This is a malicious recruitment scam! Be wary of unsolicited job offers with suspicious file attachments (.scr files are executable).",
+    points: 85
+  },
+  {
+    trigger: "microsoft",
+    attack: "Your Microsoft Office license has expired. Renew now to avoid losing access to your files: office-renewal-center.org",
+    defense: "This is license renewal fraud! Microsoft communications come from official domains. Always check the sender's email domain carefully.",
+    points: 70
+  },
+  {
+    trigger: "cryptocurrency",
+    attack: "Limited time offer! Double your Bitcoin in 24 hours with our AI trading bot. Send 0.1 BTC to get started: crypto-doubler.biz",
+    defense: "This is a cryptocurrency scam! No legitimate service can guarantee doubled returns. These are always Ponzi schemes.",
+    points: 90
+  },
+  {
+    trigger: "tax",
+    attack: "IRS Notice: You owe $3,847 in back taxes. Pay immediately to avoid legal action: irs-payment-portal.net",
+    defense: "This is a tax scam! The IRS communicates primarily through postal mail, not email. They don't demand immediate payment via email.",
+    points: 100
+  },
+  {
+    trigger: "social",
+    attack: "Someone tried to access your Facebook account from Russia. Secure your account by entering your password here: facebook-security.org",
+    defense: "This is a social media phishing attack! Always go directly to the official website to check account security, never through email links.",
+    points: 75
+  },
+  {
+    trigger: "invoice",
+    attack: "Please find attached invoice #INV-2024-1547 for immediate payment. Open the PDF to view details: invoice_details.pdf.exe",
+    defense: "This is a malicious invoice attack! Be suspicious of unexpected invoices, especially with double file extensions indicating executables.",
+    points: 85
   }
 ];
 
@@ -73,7 +162,7 @@ const AISecurityChatbots = () => {
     const initialZ3r0Message = {
       id: "z3r0-initial",
       sender: "ai" as const,
-      content: "Hello user. I am Z3R0, your security testing assistant. I will simulate various cyber attacks to test your security awareness. Type anything to begin...",
+      content: "Hello user. I am Z3R0, your security testing assistant. I will simulate various cyber attacks to test your security awareness. I have over 20 different attack scenarios ready. Type anything to begin...",
       timestamp: new Date(),
       bot: "z3r0" as const
     };
@@ -81,7 +170,7 @@ const AISecurityChatbots = () => {
     const initialAironMessage = {
       id: "airon-initial",
       sender: "ai" as const,
-      content: "Hello! I'm AI-ron, your cybersecurity defense consultant. I'm here to help you identify and avoid potential security threats. How can I assist you today?",
+      content: "Hello! I'm AI-ron, your cybersecurity defense consultant. I'm here to help you identify and avoid potential security threats. I can provide guidance on phishing, social engineering, malware, and many other attack types. How can I assist you today?",
       timestamp: new Date(),
       bot: "airon" as const
     };
@@ -137,14 +226,20 @@ const AISecurityChatbots = () => {
                                   userInput.toLowerCase().includes("threat") ||
                                   userInput.toLowerCase().includes("scam") ||
                                   userInput.toLowerCase().includes("phishing") ||
-                                  userInput.toLowerCase().includes("no");
+                                  userInput.toLowerCase().includes("suspicious") ||
+                                  userInput.toLowerCase().includes("fraud") ||
+                                  userInput.toLowerCase().includes("fake") ||
+                                  userInput.toLowerCase().includes("malicious") ||
+                                  userInput.toLowerCase().includes("no") ||
+                                  userInput.toLowerCase().includes("don't trust") ||
+                                  userInput.toLowerCase().includes("verify");
         
         if (userDetectedThreat) {
           // User correctly identified attack
           const successMessage: Message = {
             id: `z3r0-${Date.now()}`,
             sender: "ai",
-            content: `Great job! You identified the security threat. You've earned ${currentAttack.points} points!`,
+            content: `Excellent! You identified the security threat correctly. This was a ${currentAttack.trigger}-based attack simulation. You've earned ${currentAttack.points} points! 🎯`,
             timestamp: new Date(),
             bot: "z3r0"
           };
@@ -156,7 +251,7 @@ const AISecurityChatbots = () => {
           const failMessage: Message = {
             id: `z3r0-${Date.now()}`,
             sender: "ai",
-            content: `That was a security test, and unfortunately you didn't identify the threat. The message I sent was an example of a cyber attack. Stay vigilant!`,
+            content: `That was a security test, and unfortunately you didn't identify the threat. The message I sent was an example of a ${currentAttack.trigger}-based cyber attack. ${currentAttack.defense} Stay vigilant! ⚠️`,
             timestamp: new Date(),
             bot: "z3r0"
           };
@@ -173,7 +268,7 @@ const AISecurityChatbots = () => {
           const nextPromptMessage: Message = {
             id: `z3r0-${Date.now() + 1}`,
             sender: "ai",
-            content: "Would you like to try another security test? Type anything to continue.",
+            content: "Ready for another security challenge? I have many more attack simulations to test your skills. Type anything to continue.",
             timestamp: new Date(),
             bot: "z3r0"
           };
@@ -190,19 +285,31 @@ const AISecurityChatbots = () => {
       const lowerInput = userInput.toLowerCase();
       let responseContent = "";
       
-      // Check for keywords to provide relevant security advice
+      // Enhanced keyword detection for security advice
       if (lowerInput.includes("email") || lowerInput.includes("phishing")) {
-        responseContent = "Email security tip: Always verify the sender's email address before clicking on links or downloading attachments. Legitimate organizations won't ask for sensitive information via email.";
+        responseContent = "Email security tips: 1) Verify sender addresses carefully, 2) Hover over links before clicking, 3) Be suspicious of urgent language, 4) Check for spelling/grammar errors, 5) Never provide sensitive info via email.";
       } else if (lowerInput.includes("password")) {
-        responseContent = "Password security tip: Use strong, unique passwords for each account and consider using a password manager. Enable two-factor authentication whenever possible.";
+        responseContent = "Password security best practices: 1) Use unique passwords for each account, 2) Include uppercase, lowercase, numbers & symbols, 3) Use a password manager, 4) Enable two-factor authentication, 5) Never share passwords.";
       } else if (lowerInput.includes("link") || lowerInput.includes("url")) {
-        responseContent = "Link security tip: Hover over links to preview the URL before clicking. Make sure the domain matches the official website. When in doubt, navigate to the website directly instead of clicking the link.";
-      } else if (lowerInput.includes("download") || lowerInput.includes("file")) {
-        responseContent = "File security tip: Only download files from trusted sources. Be wary of executable files (.exe, .bat, .js) or documents that request to enable macros.";
+        responseContent = "Link safety guidelines: 1) Hover to preview URLs, 2) Check domain spelling carefully, 3) Avoid shortened URLs from unknown sources, 4) Navigate directly to websites when possible, 5) Use URL checkers for suspicious links.";
+      } else if (lowerInput.includes("download") || lowerInput.includes("file") || lowerInput.includes("attachment")) {
+        responseContent = "File security protocols: 1) Only download from trusted sources, 2) Scan files with antivirus before opening, 3) Be wary of double extensions (.pdf.exe), 4) Avoid executable files from emails, 5) Verify unexpected attachments with senders.";
+      } else if (lowerInput.includes("wifi") || lowerInput.includes("network")) {
+        responseContent = "WiFi security measures: 1) Avoid open public networks, 2) Use VPN on untrusted networks, 3) Verify network names with staff, 4) Turn off auto-connect features, 5) Use mobile hotspot when possible.";
+      } else if (lowerInput.includes("social") || lowerInput.includes("engineering")) {
+        responseContent = "Social engineering protection: 1) Verify identity through official channels, 2) Be suspicious of urgent requests, 3) Don't provide info over phone/email, 4) Question unexpected contact, 5) Trust your instincts if something feels wrong.";
+      } else if (lowerInput.includes("bank") || lowerInput.includes("financial")) {
+        responseContent = "Financial security tips: 1) Banks never ask for credentials via email, 2) Log in directly to official websites, 3) Monitor accounts regularly, 4) Set up account alerts, 5) Report suspicious activity immediately.";
+      } else if (lowerInput.includes("update") || lowerInput.includes("software")) {
+        responseContent = "Software security practices: 1) Only update from official sources, 2) Enable automatic updates when possible, 3) Verify update authenticity, 4) Avoid third-party update tools, 5) Keep all software current.";
+      } else if (lowerInput.includes("ceo") || lowerInput.includes("boss") || lowerInput.includes("executive")) {
+        responseContent = "Business Email Compromise protection: 1) Verify unusual requests through separate communication, 2) Be suspicious of urgent financial requests, 3) Check email addresses carefully, 4) Follow company approval processes, 5) When in doubt, call to confirm.";
+      } else if (lowerInput.includes("crypto") || lowerInput.includes("bitcoin") || lowerInput.includes("investment")) {
+        responseContent = "Cryptocurrency scam prevention: 1) No legitimate service guarantees returns, 2) Research before investing, 3) Beware of 'get rich quick' schemes, 4) Use official exchanges only, 5) Never send crypto to 'double' it.";
       } else if (lowerInput.includes("help") || lowerInput.includes("tip") || lowerInput.includes("advice")) {
-        responseContent = "General security tips: 1) Verify before you trust, 2) Keep software updated, 3) Use strong authentication, 4) Back up important data, 5) Report suspicious activities to your security team.";
+        responseContent = "General cybersecurity principles: 1) Verify before you trust, 2) Keep software updated, 3) Use strong authentication, 4) Back up important data regularly, 5) Report suspicious activities to your security team, 6) Stay educated about new threats.";
       } else {
-        responseContent = "Remember to always verify the identity of individuals requesting information. When in doubt, contact your IT department through official channels. Would you like specific security advice on a particular topic?";
+        responseContent = "I'm here to help with cybersecurity questions! Ask me about phishing, social engineering, password security, safe browsing, or any other security topic. Remember: when in doubt, verify through official channels and trust your instincts.";
       }
       
       const aironMessage: Message = {
@@ -255,8 +362,8 @@ const AISecurityChatbots = () => {
               </h3>
               <p className="text-xs text-white/70">
                 {activeBot === 'z3r0' 
-                  ? 'Attack Simulation AI' 
-                  : 'Defense Consultant AI'}
+                  ? 'Attack Simulation AI - 20+ Attack Types' 
+                  : 'Defense Consultant AI - Expert Guidance'}
               </p>
             </div>
             {activeBot === 'z3r0' && (
@@ -358,7 +465,7 @@ const AISecurityChatbots = () => {
           </CardHeader>
           <CardContent className="text-center">
             <span className="text-3xl font-mono text-scorpion-red">
-              {userScore < 100 ? "Rookie" : userScore < 300 ? "Guardian" : "Master"}
+              {userScore < 100 ? "Rookie" : userScore < 300 ? "Guardian" : userScore < 600 ? "Expert" : "Master"}
             </span>
             <p className="text-xs text-white/70 mt-2">Your current security expertise level</p>
           </CardContent>
@@ -384,3 +491,5 @@ const AISecurityChatbots = () => {
 };
 
 export default AISecurityChatbots;
+
+</edits_to_apply>

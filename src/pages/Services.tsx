@@ -3,7 +3,7 @@ import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import ServicesSection from "@/components/sections/ServicesSection";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Code, Briefcase, ShieldAlert, Bot, Trophy, Medal } from "lucide-react";
+import { Shield, Code, Briefcase, ShieldAlert, Bot, Trophy, Medal, Cloud } from "lucide-react";
 import CyberGuardian from "@/components/cyber/CyberGuardian";
 import CyberChallenge from "@/components/cyber/CyberChallenge";
 import AISecurityTraining from "@/components/security/AISecurityTraining";
@@ -61,7 +61,7 @@ const detailedServices = [
   {
     title: "Cloud Security",
     description: "Comprehensive cloud security solutions to protect your cloud infrastructure, data, and applications across multi-cloud environments.",
-    icon: <Shield className="text-scorpion-red w-16 h-16" />,
+    icon: <Cloud className="text-scorpion-red w-16 h-16" />,
     details: [
       "Cloud security assessment and monitoring",
       "Multi-cloud security architecture",

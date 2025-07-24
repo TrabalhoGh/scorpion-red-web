@@ -57,6 +57,18 @@ const detailedServices = [
       "Real-time scoring and ranking",
       "Digital achievement badges"
     ]
+  },
+  {
+    title: "Cloud Security",
+    description: "Comprehensive cloud security solutions to protect your cloud infrastructure, data, and applications across multi-cloud environments.",
+    icon: <Shield className="text-scorpion-red w-16 h-16" />,
+    details: [
+      "Cloud security assessment and monitoring",
+      "Multi-cloud security architecture",
+      "Container and Kubernetes security",
+      "Cloud compliance and governance",
+      "Zero-trust cloud implementation"
+    ]
   }
 ];
 

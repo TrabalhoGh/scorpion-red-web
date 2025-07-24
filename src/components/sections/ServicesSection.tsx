@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Code, Briefcase, Bot, Trophy } from "lucide-react";
+import { Shield, Code, Briefcase, Bot, Trophy, Cloud } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -16,9 +16,9 @@ const services = [
     icon: <Code className="text-scorpion-red w-10 h-10" />,
   },
   {
-    title: "Risk Assessment",
-    description: "Comprehensive security audits and vulnerability analysis for your premises.",
-    icon: "📊",
+    title: "Cloud Security",
+    description: "Comprehensive cloud security solutions to protect your cloud infrastructure and data.",
+    icon: <Cloud className="text-scorpion-red w-10 h-10" />,
   },
   {
     title: "Cyber Security",

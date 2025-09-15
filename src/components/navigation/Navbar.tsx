@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Shield, LogIn, UserPlus } from "lucide-react";
+import { Menu, X, LogIn, UserPlus } from "lucide-react";
+import scorpionLogo from "@/assets/scorpion-logo.webp";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -25,9 +26,11 @@ const Navbar = () => {
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="flex items-center group">
-            <Shield className="h-6 w-6 text-scorpion-red mr-2 group-hover:animate-pulse transition-all" />
-            <span className="text-scorpion-red font-bold text-2xl mr-2 group-hover:text-white transition-colors">SCORPION</span>
-            <span className="text-white font-medium text-lg group-hover:text-scorpion-red transition-colors">SECURITY</span>
+            <img 
+              src={scorpionLogo} 
+              alt="Scorpion Security Logo" 
+              className="h-12 w-auto group-hover:scale-105 transition-transform duration-300" 
+            />
           </Link>
         </div>
 

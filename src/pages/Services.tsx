@@ -3,7 +3,9 @@ import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import ServicesSection from "@/components/sections/ServicesSection";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Code, Briefcase, ShieldAlert, Bot, Trophy, Medal, Cloud } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Shield, Code, Briefcase, ShieldAlert, Bot, Trophy, Medal, Cloud, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import CyberGuardian from "@/components/cyber/CyberGuardian";
 import CyberChallenge from "@/components/cyber/CyberChallenge";
 import AISecurityTraining from "@/components/security/AISecurityTraining";
@@ -82,10 +84,16 @@ const Services = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               Our <span className="text-scorpion-red">Services</span>
             </h1>
-            <p className="text-lg text-white/70 max-w-3xl mx-auto">
+            <p className="text-lg text-white/70 max-w-3xl mx-auto mb-8">
               Comprehensive security solutions tailored to meet your specific needs.
               Protect your business, assets, and data with Scorpion Security.
             </p>
+            <Link to="/cyber-services">
+              <Button size="lg" className="bg-scorpion-red hover:bg-scorpion-red/90 text-white">
+                View International Cybersecurity Services
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
           
           <div className="space-y-16">

@@ -4,7 +4,7 @@ import Footer from "@/components/navigation/Footer";
 import ServicesSection from "@/components/sections/ServicesSection";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Code, Briefcase, ShieldAlert, Bot, Trophy, Medal, Cloud, ArrowRight } from "lucide-react";
+import { Shield, Code, Briefcase, ShieldAlert, Bot, Trophy, Medal, Cloud, ArrowRight, Video, DoorOpen, Camera, Fingerprint } from "lucide-react";
 import { Link } from "react-router-dom";
 import CyberGuardian from "@/components/cyber/CyberGuardian";
 import CyberChallenge from "@/components/cyber/CyberChallenge";
@@ -46,6 +46,38 @@ const detailedServices = [
       "Security information and event management (SIEM)",
       "Endpoint protection",
       "Security operations center (SOC)"
+    ]
+  },
+  {
+    title: "CFTV Video Surveillance",
+    description: "State-of-the-art closed-circuit television systems with intelligent analytics, remote monitoring, and comprehensive recording solutions for complete facility protection.",
+    icon: <Video className="text-scorpion-red w-16 h-16" />,
+    details: [
+      "HD/4K IP camera installation and configuration",
+      "24/7 remote monitoring and alert systems",
+      "Intelligent video analytics (motion detection, facial recognition, object tracking)",
+      "Cloud-based and on-premise storage solutions",
+      "Integration with access control and alarm systems",
+      "Night vision and thermal imaging capabilities",
+      "Mobile app access for real-time viewing",
+      "Scalable systems from small businesses to enterprise facilities"
+    ]
+  },
+  {
+    title: "Access Control Systems",
+    description: "Advanced access control solutions combining biometric authentication, smart cards, and intelligent software to manage and secure physical access to your facilities.",
+    icon: <DoorOpen className="text-scorpion-red w-16 h-16" />,
+    details: [
+      "Biometric authentication (fingerprint, facial recognition, iris scanning)",
+      "RFID and smart card access systems",
+      "Multi-factor authentication for high-security zones",
+      "Visitor management and temporary access credentials",
+      "Integration with HR systems for automated provisioning",
+      "Real-time access logs and audit trails",
+      "Turnstile, gate, and door controller integration",
+      "Mobile credentials and smartphone-based access",
+      "Time-based access restrictions and zone management",
+      "Emergency lockdown and evacuation protocols"
     ]
   },
   {

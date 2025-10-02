@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Code, Briefcase, Bot, Trophy, Cloud } from "lucide-react";
+import { Shield, Code, Briefcase, Bot, Trophy, Cloud, Video, DoorOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -24,6 +24,16 @@ const services = [
     title: "Cyber Security",
     description: "Protection against digital threats, data breaches, and online vulnerabilities.",
     icon: <Shield className="text-scorpion-red w-10 h-10" />,
+  },
+  {
+    title: "CFTV Surveillance",
+    description: "Advanced video surveillance systems with intelligent monitoring and 24/7 recording capabilities.",
+    icon: <Video className="text-scorpion-red w-10 h-10" />,
+  },
+  {
+    title: "Access Control",
+    description: "Sophisticated access control systems with biometric and smart card authentication for secure facility management.",
+    icon: <DoorOpen className="text-scorpion-red w-10 h-10" />,
   },
   {
     title: "AI Security Training",

@@ -120,12 +120,12 @@ const Services = () => {
               Comprehensive security solutions tailored to meet your specific needs.
               Protect your business, assets, and data with Scorpion Security.
             </p>
-            <Link to="/cyber-services">
+            <a href="/cyber-services" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="bg-scorpion-red hover:bg-scorpion-red/90 text-white">
                 View International Cybersecurity Services
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-            </Link>
+            </a>
           </div>
           
           <div className="space-y-16">

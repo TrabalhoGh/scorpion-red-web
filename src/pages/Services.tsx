@@ -108,7 +108,7 @@ const detailedServices = [
 
 const Services = () => {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white notranslate" translate="no">
       <Navbar />
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4">

@@ -46,8 +46,8 @@ const Navbar = () => {
                   Serviços
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    <li className="row-span-3">
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-1 lg:w-[400px]">
+                    <li>
                       <NavigationMenuLink asChild>
                         <Link
                           className="flex h-full w-full select-none flex-col justify-end rounded-md bg-scorpion-gray p-6 no-underline outline-none focus:shadow-md hover:bg-scorpion-gray/80 transition-colors"
@@ -57,33 +57,7 @@ const Navbar = () => {
                             Todos os Serviços
                           </div>
                           <p className="text-sm leading-tight text-white/70">
-                            Conheça nossa gama completa de serviços de segurança digital.
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/legal-services"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-scorpion-gray hover:text-white focus:bg-scorpion-gray focus:text-white"
-                        >
-                          <div className="text-sm font-medium leading-none">Serviços Jurídicos</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-white/70">
-                            Proteção legal especializada para homens.
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/services"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-scorpion-gray hover:text-white focus:bg-scorpion-gray focus:text-white"
-                        >
-                          <div className="text-sm font-medium leading-none">Segurança Digital</div>
-                          <p className="line-clamp-2 text-sm leading-snug text-white/70">
-                            Proteção contra ameaças cibernéticas.
+                            Conheça nossa gama completa de serviços de segurança digital e física.
                           </p>
                         </Link>
                       </NavigationMenuLink>
@@ -101,12 +75,6 @@ const Navbar = () => {
               <NavigationMenuItem>
                 <Link to="/contact" className="text-white hover:text-scorpion-red transition-colors px-3 py-2 rounded-md hover:bg-scorpion-gray/20">
                   Contato
-                </Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link to="/lawyers" className="text-white hover:text-scorpion-red transition-colors px-3 py-2 rounded-md hover:bg-scorpion-gray/20">
-                  Advogados
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -159,14 +127,6 @@ const Navbar = () => {
               Serviços
             </Link>
             <Link 
-              to="/legal-services" 
-              className="text-white hover:text-scorpion-red py-2 transition-colors pl-4 border-l border-scorpion-gray/30 flex items-center gap-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <span className="w-1 h-6 bg-scorpion-red/30"></span>
-              Serviços Jurídicos
-            </Link>
-            <Link 
               to="/about" 
               className="text-white hover:text-scorpion-red py-2 transition-colors flex items-center gap-2"
               onClick={() => setIsMenuOpen(false)}
@@ -181,14 +141,6 @@ const Navbar = () => {
             >
               <span className="w-1 h-6 bg-scorpion-red/50"></span>
               Contato
-            </Link>
-            <Link 
-              to="/lawyers" 
-              className="text-white hover:text-scorpion-red py-2 transition-colors flex items-center gap-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <span className="w-1 h-6 bg-scorpion-red/50"></span>
-              Advogados
             </Link>
             <div className="flex flex-col gap-2 pt-2">
               <Button 

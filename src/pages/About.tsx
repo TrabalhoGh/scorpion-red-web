@@ -5,7 +5,7 @@ import AboutSection from "@/components/sections/AboutSection";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white notranslate" translate="no">
       <Navbar />
       <div className="pt-24">
         <AboutSection />

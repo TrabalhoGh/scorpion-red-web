@@ -9,11 +9,9 @@ import Services from "./pages/Services";
 import CyberServices from "./pages/CyberServices";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import LegalServices from "./pages/LegalServices";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import Lawyers from "./pages/Lawyers";
 import NotFound from "./pages/NotFound";
 import React, { useEffect } from "react";
 
@@ -37,11 +35,9 @@ const App = () => {
               <Route path="/cyber-services" element={<CyberServices />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/legal-services" element={<LegalServices />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/lawyers" element={<Lawyers />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

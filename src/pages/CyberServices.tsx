@@ -276,7 +276,7 @@ const salesSnippets = [
 
 const CyberServices = () => {
   return (
-    <div className="min-h-screen bg-black text-white" translate="no">
+    <div className="min-h-screen bg-black text-white notranslate" translate="no">
       <Navbar />
       
       <main className="pt-24 pb-16">

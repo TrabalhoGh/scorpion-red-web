@@ -5,7 +5,7 @@ import ContactSection from "@/components/sections/ContactSection";
 
 const Contact = () => {
   return (
-    <div className="min-h-screen bg-black text-white notranslate" translate="no">
+    <div className="min-h-screen bg-black text-white">
       <Navbar />
       <div className="pt-24">
         <ContactSection />

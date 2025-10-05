@@ -11,7 +11,7 @@ import CyberGuardian from "@/components/cyber/CyberGuardian";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-black text-white notranslate" translate="no">
+    <div className="min-h-screen bg-black text-white">
       <Navbar />
       <main>
         <HeroSection />

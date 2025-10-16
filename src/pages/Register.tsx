@@ -127,7 +127,22 @@ const Register = () => {
       }
 
       if (authData.user) {
-        // 2. Adicionar informações do perfil
+        // 2. Adicionar tipo de usuário na tabela user_roles
+        const { error: roleError } = await supabase
+          .from("user_roles")
+          .insert([
+            {
+              user_id: authData.user.id,
+              user_type: values.userType,
+            },
+          ]);
+
+        if (roleError) {
+          toast.error("Erro ao definir tipo de usuário: " + roleError.message);
+          return;
+        }
+
+        // 3. Adicionar informações do perfil
         const tableName = values.userType === "lawyer" ? "lawyers" : "clients";
         
         const { error: profileError } = await supabase
@@ -152,7 +167,6 @@ const Register = () => {
       }
     } catch (error) {
       toast.error("Ocorreu um erro inesperado. Tente novamente.");
-      console.error("Registration error:", error);
     } finally {
       setIsLoading(false);
     }

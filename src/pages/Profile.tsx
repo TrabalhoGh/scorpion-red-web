@@ -34,12 +34,8 @@ const Profile = () => {
         return;
       }
       
-      // Get user type from meta data
-      const type = session?.user?.user_metadata?.user_type as UserType;
-      setUserType(type);
-      
-      // Fetch profile data
-      fetchProfile(session.user.id, type);
+      // Fetch user type from server-side user_roles table
+      fetchUserTypeAndProfile(session.user.id);
     });
 
     // Set up auth state listener
@@ -51,12 +47,38 @@ const Profile = () => {
         return;
       }
       
-      const type = session?.user?.user_metadata?.user_type as UserType;
-      setUserType(type);
+      // Fetch user type from server when session changes
+      setTimeout(() => {
+        fetchUserTypeAndProfile(session.user.id);
+      }, 0);
     });
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  const fetchUserTypeAndProfile = async (userId: string) => {
+    try {
+      // Fetch user type from server-side user_roles table
+      const { data: roleData, error: roleError } = await supabase
+        .from("user_roles")
+        .select("user_type")
+        .eq("user_id", userId)
+        .single();
+
+      if (roleError) {
+        toast.error("Erro ao carregar tipo de usuário: " + roleError.message);
+        return;
+      }
+
+      const type = roleData?.user_type as UserType;
+      setUserType(type);
+      
+      // Fetch profile data based on server-validated user type
+      fetchProfile(userId, type);
+    } catch (error) {
+      toast.error("Erro ao carregar informações do usuário.");
+    }
+  };
 
   const fetchProfile = async (userId: string, type: UserType) => {
     if (!type) return;
@@ -78,7 +100,7 @@ const Profile = () => {
       setProfile(data);
       setFormData(data);
     } catch (error) {
-      console.error("Error fetching profile:", error);
+      toast.error("Erro ao carregar perfil.");
     } finally {
       setIsLoading(false);
     }
@@ -91,7 +113,6 @@ const Profile = () => {
       navigate("/");
     } catch (error) {
       toast.error("Erro ao sair da conta.");
-      console.error("Sign out error:", error);
     }
   };
 
@@ -118,7 +139,6 @@ const Profile = () => {
       setIsEditing(false);
     } catch (error) {
       toast.error("Ocorreu um erro ao atualizar o perfil.");
-      console.error("Update profile error:", error);
     }
   };
 

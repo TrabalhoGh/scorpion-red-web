@@ -127,7 +127,7 @@ const Register = () => {
       }
 
       if (authData.user) {
-        // 2. Adicionar tipo de usuário na tabela user_roles
+        // 2. Insert user role into user_roles table (server-side source of truth)
         const { error: roleError } = await supabase
           .from("user_roles")
           .insert([
@@ -310,7 +310,7 @@ const Register = () => {
                       <FormLabel>
                         {watchUserType === "lawyer" 
                           ? "Descrição dos seus serviços" 
-                          : "Descrição do caso ou ajuda necess��ria"}
+                          : "Descrição do caso ou ajuda necessária"}
                       </FormLabel>
                       <FormControl>
                         <Textarea 

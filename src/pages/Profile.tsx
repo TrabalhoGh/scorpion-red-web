@@ -34,8 +34,8 @@ const Profile = () => {
         return;
       }
       
-      // Fetch user type from server-side user_roles table
-      fetchUserTypeAndProfile(session.user.id);
+      // Fetch profile data (will also fetch user type from server)
+      fetchProfile(session.user.id);
     });
 
     // Set up auth state listener
@@ -47,18 +47,20 @@ const Profile = () => {
         return;
       }
       
-      // Fetch user type from server when session changes
-      setTimeout(() => {
-        fetchUserTypeAndProfile(session.user.id);
-      }, 0);
+      // Refetch profile when session changes
+      if (session?.user?.id) {
+        fetchProfile(session.user.id);
+      }
     });
 
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const fetchUserTypeAndProfile = async (userId: string) => {
+  const fetchProfile = async (userId: string) => {
     try {
-      // Fetch user type from server-side user_roles table
+      setIsLoading(true);
+      
+      // First, get user type from user_roles table (server-side source of truth)
       const { data: roleData, error: roleError } = await supabase
         .from("user_roles")
         .select("user_type")
@@ -70,27 +72,15 @@ const Profile = () => {
         return;
       }
 
-      const type = roleData?.user_type as UserType;
+      const type = roleData.user_type as UserType;
       setUserType(type);
       
-      // Fetch profile data based on server-validated user type
-      fetchProfile(userId, type);
-    } catch (error) {
-      toast.error("Erro ao carregar informações do usuário.");
-    }
-  };
-
-  const fetchProfile = async (userId: string, type: UserType) => {
-    if (!type) return;
-    
-    try {
-      setIsLoading(true);
-      
+      // Then fetch profile from the appropriate table
       const { data, error } = await supabase
         .from(type === "lawyer" ? "lawyers" : "clients")
         .select("*")
         .eq("user_id", userId)
-        .single();
+        .maybeSingle();
 
       if (error) {
         toast.error("Erro ao carregar perfil: " + error.message);
@@ -98,9 +88,9 @@ const Profile = () => {
       }
 
       setProfile(data);
-      setFormData(data);
+      setFormData(data || {});
     } catch (error) {
-      toast.error("Erro ao carregar perfil.");
+      toast.error("Erro inesperado ao carregar perfil.");
     } finally {
       setIsLoading(false);
     }
